@@ -1,94 +1,150 @@
 #include "main.h"
 
-/**
- * A callback function for LLEMU's center button.
- *
- * When this callback is fired, it will toggle line 2 of the LCD text between
- * "I was pressed!" and nothing.
- */
+// ----------------------------------------------------------------------------
+// LightHouse Studios Robotics
+// Hsi mom im on camera!!! :DDDD -Elliott
+// ----------------------------------------------------------------------------
+
+// -----------------------------------------------------------------------------
+// callback things for screen buttons
+// -----------------------------------------------------------------------------
+int autonColor = 1; // 1 = Blue, -1 = Red
+int autonSide = 1;  // 1 = Right, -1 = Left
+
+void on_left_button() {
+	static bool pressed = false;
+	pressed = !pressed;
+	if (pressed) {
+		autonSide = -1;
+		pros::lcd::set_text(2, "Left Auton");
+	} else {
+		pros::lcd::set_text(2, "Auton Side");
+	}
+}
+
 void on_center_button() {
 	static bool pressed = false;
 	pressed = !pressed;
 	if (pressed) {
-		pros::lcd::set_text(2, "I was pressed!");
+		autonColor = 1;
+		pros::lcd::set_text(1, "Blue Auton");
 	} else {
-		pros::lcd::clear_line(2);
+		autonColor = -1;
+		pros::lcd::set_text(1, "Red Auton");
 	}
 }
 
-/**
- * Runs initialization code. This occurs as soon as the program is started.
- *
- * All other competition modes are blocked by initialize; it is recommended
- * to keep execution time for this mode under a few seconds.
- */
+void on_right_button() {
+	static bool pressed = false;
+	pressed = !pressed;
+	if (pressed) {
+		autonSide = 1;
+		pros::lcd::set_text(2, "Right Auton");
+	} else {
+		pros::lcd::set_text(2, "Auton Side");
+	}
+}
+
+// -----------------------------------------------------------------------------
+// Start ups / initilazinf
+// -----------------------------------------------------------------------------
 void initialize() {
 	pros::lcd::initialize();
-	pros::lcd::set_text(1, "Hello PROS User!");
-
+	pros::lcd::set_text(0, "LightHouse Robotics");
+	pros::lcd::set_text(1, "Alliance Color");
+	pros::lcd::set_text(2, "Auton Side");
+	pros::lcd::register_btn0_cb(on_left_button);
 	pros::lcd::register_btn1_cb(on_center_button);
+	pros::lcd::register_btn2_cb(on_right_button);
 }
 
-/**
- * Runs while the robot is in the disabled state of Field Management System or
- * the VEX Competition Switch, following either autonomous or opcontrol. When
- * the robot is enabled, this task will exit.
- */
+// -----------------------------------------------------------------------------
+// Disabled  Iniytilaization
+// -----------------------------------------------------------------------------
 void disabled() {}
-
-/**
- * Runs after initialize(), and before autonomous when connected to the Field
- * Management System or the VEX Competition Switch. This is intended for
- * competition-specific initialization routines, such as an autonomous selector
- * on the LCD.
- *
- * This task will exit when the robot is enabled and autonomous or opcontrol
- * starts.
- */
 void competition_initialize() {}
 
-/**
- * Runs the user autonomous code. This function will be started in its own task
- * with the default priority and stack size whenever the robot is enabled via
- * the Field Management System or the VEX Competition Switch in the autonomous
- * mode. Alternatively, this function may be called in initialize or opcontrol
- * for non-competition testing purposes.
- *
- * If the robot is disabled or communications is lost, the autonomous task
- * will be stopped. Re-enabling the robot will restart the task, not re-start it
- * from where it left off.
- */
-void autonomous() {}
+// -----------------------------------------------------------------------------
+// Auton
+// -----------------------------------------------------------------------------
+void autonomous() {
+	pros::lcd::set_text(3, "Autonomous Started!");
 
-/**
- * Runs the operator control code. This function will be started in its own task
- * with the default priority and stack size whenever the robot is enabled via
- * the Field Management System or the VEX Competition Switch in the operator
- * control mode.
- *
- * If no competition control is connected, this function will run immediately
- * following initialize().
- *
- * If the robot is disabled or communications is lost, the
- * operator control task will be stopped. Re-enabling the robot will restart the
- * task, not resume it from where it left off.
- */
+	// Motor groups for autonomous
+	pros::MotorGroup leftDrive({-10, -8, -9});   // reversed left motors
+	pros::MotorGroup rightDrive({1, 3, 2});      // right motors
+	pros::Motor intake(11);
+	pros::Motor strafe(16);
+	pros::ADIDigitalOut clamp('H', LOW);
+
+	int driveSpeed = 100;
+	int turnSpeed = 100;
+	int intakeSpeed = 127;
+	int turnDir = 1;
+
+	// swap directions for red or left auton
+	if (autonColor == -1 && autonSide == -1) {
+		turnDir = -1;
+		pros::lcd::set_text(4, "Red Left Auton");
+	} else if (autonColor == 1 && autonSide == 1) {
+		pros::lcd::set_text(4, "Blue Right Auton");
+	} else if (autonColor == -1 && autonSide == 1) {
+		pros::lcd::set_text(4, "Red Right Auton");
+	} else if (autonColor == 1 && autonSide == -1) {
+		pros::lcd::set_text(4, "Blue Left Auton");
+	}
+
+	
+}
+
+// -----------------------------------------------------------------------------
+// bobot driver Control
+// -----------------------------------------------------------------------------
 void opcontrol() {
 	pros::Controller master(pros::E_CONTROLLER_MASTER);
-	pros::MotorGroup left_mg({1, -2, 3});    // Creates a motor group with forwards ports 1 & 3 and reversed port 2
-	pros::MotorGroup right_mg({-4, 5, -6});  // Creates a motor group with forwards port 5 and reversed ports 4 & 6
 
+	// Motor setup thingi 
+	pros::MotorGroup leftDrive({-10, -8, -9});
+	pros::MotorGroup rightDrive({1, 3, 2});
+	pros::Motor intake(11);
+	pros::Motor strafe(16);
+	pros::ADIDigitalOut clamp('H', LOW);
+
+	int intakeSpeed = 127;
+	int strafeSpeed = 100;
+
+	pros::lcd::set_text(0, "Operator Control Active");
 
 	while (true) {
-		pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
-		                 (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
-		                 (pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);  // Prints status of the emulated screen LCDs
+		// Arcade drive
+		int power = master.get_analog(ANALOG_LEFT_Y);
+		int turn = master.get_analog(ANALOG_RIGHT_X);
 
-		// Arcade control scheme
-		int dir = master.get_analog(ANALOG_LEFT_Y);    // Gets amount forward/backward from left joystick
-		int turn = master.get_analog(ANALOG_RIGHT_X);  // Gets the turn left/right from right joystick
-		left_mg.move(dir - turn);                      // Sets left motor voltage
-		right_mg.move(dir + turn);                     // Sets right motor voltage
-		pros::delay(20);                               // Run for 20 ms then update
+		leftDrive.move(power + turn);
+		rightDrive.move(power - turn);
+
+		// Strafeing control 
+		if (master.get_digital(DIGITAL_X)) {
+			strafe.move(strafeSpeed);
+		} else if (master.get_digital(DIGITAL_B)) {
+			strafe.move(-strafeSpeed);
+		} else {
+			strafe.move(0);
+		}
+
+		// Intake control (L1 / L2)
+		if (master.get_digital(DIGITAL_L1)) {
+			intake.move(intakeSpeed);
+			pros::lcd::set_text(3, "Intake Forward");
+		} else if (master.get_digital(DIGITAL_L2)) {
+			intake.move(-intakeSpeed);
+			pros::lcd::set_text(3, "Intake Reverse");
+		} else {
+			intake.move(0);
+		}
+
+	
+		pros::delay(20);
 	}
 }
+

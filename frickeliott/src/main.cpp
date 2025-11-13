@@ -8,8 +8,8 @@
 // -----------------------------------------------------------------------------
 // callback things for screen buttons
 // -----------------------------------------------------------------------------
-int autonColor = 1; // 1 = Blue, -1 = Red
-int autonSide = 1;  // 1 = Right, -1 = Left
+//int autonColor = 1; // 1 = Blue, -1 = Red
+//int autonSide = 1;  // 1 = Right, -1 = Left
 
 void on_left_button() {
 	static bool pressed = false;
@@ -74,7 +74,7 @@ void autonomous() {
 	pros::MotorGroup leftDrive({-10, -8, -9});   // reversed left motors
 	pros::MotorGroup rightDrive({1, 3, 2});      // right motors
 	pros::Motor intake(11);
-	pros::Motor strafe(16);
+	pros::Motor strafe(-16);
 	pros::ADIDigitalOut clamp('H', LOW);
 
 	int driveSpeed = 100;
@@ -107,7 +107,7 @@ void opcontrol() {
 	pros::MotorGroup leftDrive({-10, -8, -9});
 	pros::MotorGroup rightDrive({1, 3, 2});
 	pros::Motor intake(11);
-	pros::Motor strafe(16);
+	pros::Motor strafe(-16);
 	pros::ADIDigitalOut clamp('H', LOW);
 
 	int intakeSpeed = 127;
@@ -119,18 +119,11 @@ void opcontrol() {
 		// Arcade drive
 		int power = master.get_analog(ANALOG_LEFT_Y);
 		int turn = master.get_analog(ANALOG_RIGHT_X);
-
+		int stafeDrive = master.get_analog(ANALOG_LEFT_X);
 		leftDrive.move(power + turn);
 		rightDrive.move(power - turn);
-
-		// Strafeing control 
-		if (master.get_digital(DIGITAL_X)) {
-			strafe.move(strafeSpeed);
-		} else if (master.get_digital(DIGITAL_B)) {
-			strafe.move(-strafeSpeed);
-		} else {
-			strafe.move(0);
-		}
+		strafe.move(stafeDrive);
+		
 
 		// Intake control (L1 / L2)
 		if (master.get_digital(DIGITAL_L1)) {
@@ -142,6 +135,7 @@ void opcontrol() {
 		} else {
 			intake.move(0);
 		}
+
 
 	
 		pros::delay(20);

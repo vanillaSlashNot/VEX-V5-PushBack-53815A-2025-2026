@@ -46,7 +46,7 @@ void on_right_button() {
 }
 
 // -----------------------------------------------------------------------------
-// Start ups / initilazinf
+// Start ups / initilaze
 // -----------------------------------------------------------------------------
 void initialize() {
 	pros::lcd::initialize();
@@ -59,7 +59,7 @@ void initialize() {
 }
 
 // -----------------------------------------------------------------------------
-// Disabled  Iniytilaization
+// Disabled  Initialization
 // -----------------------------------------------------------------------------
 void disabled() {}
 void competition_initialize() {}
@@ -98,12 +98,12 @@ void autonomous() {
 }
 
 // -----------------------------------------------------------------------------
-// bobot driver Control
+// Robot driver Control
 // -----------------------------------------------------------------------------
 void opcontrol() {
 	pros::Controller master(pros::E_CONTROLLER_MASTER);
 
-	// Motor setup thingi 
+	// Motor setup
 	pros::MotorGroup leftDrive({-10, -8, -9});
 	pros::MotorGroup rightDrive({1, 3, 2});
 	pros::Motor intake(11);
@@ -122,8 +122,15 @@ void opcontrol() {
 		int stafeDrive = master.get_analog(ANALOG_LEFT_X);
 		leftDrive.move(power + turn);
 		rightDrive.move(power - turn);
-		strafe.move(stafeDrive);
-		
+
+		// Strafeing control 
+		if (master.get_digital(DIGITAL_X)) {
+			strafe.move(strafeSpeed);
+		} else if (master.get_digital(DIGITAL_B)) {
+			strafe.move(-strafeSpeed);
+		} else {
+			strafe.move(0);
+		}
 
 		// Intake control (L1 / L2)
 		if (master.get_digital(DIGITAL_L1)) {
@@ -138,7 +145,7 @@ void opcontrol() {
 
 
 	
-		pros::delay(20);
+	//	pros::delay(20);
 	}
 }
 

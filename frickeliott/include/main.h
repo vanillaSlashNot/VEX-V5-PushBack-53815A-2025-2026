@@ -42,8 +42,6 @@
 //#include "okapi/api.hpp"
 #include "autons.hpp"
 #include "definitions.hpp"
-#include "frickeliott.hpp"
-
 
 
 /**
@@ -53,9 +51,9 @@
  * IMPORTANT: Only the okapi or pros namespace may be used, not both
  * concurrently! The okapi namespace will export all symbols inside the pros
  * namespace.
- */
-// using namespace pros;
-// using namespace pros::literals;
+*/
+using namespace pros;
+using namespace pros::literals;
 // using namespace okapi;
 
 /**

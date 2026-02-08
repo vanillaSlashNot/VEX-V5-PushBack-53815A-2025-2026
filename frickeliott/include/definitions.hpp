@@ -1,4 +1,4 @@
-#include "main.h"
+
 pros::Controller master(pros::E_CONTROLLER_MASTER);
 
 // Motor setup
@@ -10,4 +10,10 @@ pros::ADIDigitalOut clamp('H', LOW);
 
 int intakeSpeed = 127;
 int strafeSpeed = 100;
-pros::lcd::set_text(0, "Operator Control Active");
+
+int driveSpeed = 100;
+int turnSpeed = 100;
+int intakeSpeed = 127;
+int turnDir = 1;
+
+

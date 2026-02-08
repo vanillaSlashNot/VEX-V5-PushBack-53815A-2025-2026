@@ -1,5 +1,5 @@
-#include "main.h"
 
+#include "main.h"  // Include the main header file for common definitions and includes	
 // ----------------------------------------------------------------------------
 // LightHouse Studios Robotics
 // Hsi mom im on camera!!! :DDDD -Elliott
@@ -49,6 +49,8 @@ void competition_initialize() {}
 // Robot driver Control
 // -----------------------------------------------------------------------------
 void opcontrol() {
+	pros::Controller master(pros::E_CONTROLLER_MASTER);
+	pros::lcd::set_text(0, "Operator Control Active");
 
 
 	while (true) {

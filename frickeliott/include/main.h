@@ -40,6 +40,11 @@
  * You should add more #includes here
  */
 //#include "okapi/api.hpp"
+#include "autons.hpp"
+#include "definitions.hpp"
+#include "frickeliott.hpp"
+
+
 
 /**
  * If you find doing pros::Motor() to be tedious and you'd prefer just to do

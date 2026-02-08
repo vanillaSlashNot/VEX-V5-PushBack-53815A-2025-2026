@@ -5,48 +5,7 @@
 // Hsi mom im on camera!!! :DDDD -Elliott
 // ----------------------------------------------------------------------------
 
-// -----------------------------------------------------------------------------
-// callback things for screen buttons
-// -----------------------------------------------------------------------------
 
-
-
-//int autonColor = 1; // 1 = Blue, -1 = Red
-//int autonSide = 1;  // 1 = Right, -1 = Left
-
-void on_left_button() {
-	static bool pressed = false;
-	pressed = !pressed;
-	if (pressed) {
-		autonSide = -1;
-		pros::lcd::set_text(2, "Left Auton");
-	} else {
-		pros::lcd::set_text(2, "Auton Side");
-	}
-}
-
-void on_center_button() {
-	static bool pressed = false;
-	pressed = !pressed;
-	if (pressed) {
-		autonColor = 1;
-		pros::lcd::set_text(1, "Blue Auton");
-	} else {
-		autonColor = -1;
-		pros::lcd::set_text(1, "Red Auton");
-	}
-}
-
-void on_right_button() {
-	static bool pressed = false;
-	pressed = !pressed;
-	if (pressed) {
-		autonSide = 1;
-		pros::lcd::set_text(2, "Right Auton");
-	} else {
-		pros::lcd::set_text(2, "Auton Side");
-	}
-}
 
 
 
@@ -83,43 +42,6 @@ void competition_initialize() {}
 
 
 
-// -----------------------------------------------------------------------------
-// Auton
-// -----------------------------------------------------------------------------
-void autonomous() {
-	pros::lcd::set_text(3, "Autonomous Started!");
-
-	// Motor groups for autonomous
-	pros::MotorGroup leftDrive({-10, -8, -9});   // reversed left motors
-	pros::MotorGroup rightDrive({1, 3, 2});      // right motors
-	pros::Motor intake(11);
-	pros::Motor strafe(-16);
-	pros::ADIDigitalOut clamp('H', LOW);
-
-	int driveSpeed = 100;
-	int turnSpeed = 100;
-	int intakeSpeed = 127;
-	int turnDir = 1;
-
-	// swap directions for red or left auton
-	if (autonColor == -1 && autonSide == -1) {
-		turnDir = -1;
-		pros::lcd::set_text(4, "Red Left Auton");
-	} else if (autonColor == 1 && autonSide == 1) {
-		pros::lcd::set_text(4, "Blue Right Auton");
-	} else if (autonColor == -1 && autonSide == 1) {
-		pros::lcd::set_text(4, "Red Right Auton");
-	} else if (autonColor == 1 && autonSide == -1) {
-		pros::lcd::set_text(4, "Blue Left Auton");
-	}
-
-	
-}
-
-
-
-
-
 
 
 
@@ -127,19 +49,7 @@ void autonomous() {
 // Robot driver Control
 // -----------------------------------------------------------------------------
 void opcontrol() {
-	pros::Controller master(pros::E_CONTROLLER_MASTER);
 
-	// Motor setup
-	pros::MotorGroup leftDrive({-10, -8, -9});
-	pros::MotorGroup rightDrive({1, 3, 2});
-	pros::Motor intake(11);
-	pros::Motor strafe(-16);
-	pros::ADIDigitalOut clamp('H', LOW);
-
-	int intakeSpeed = 127;
-	int strafeSpeed = 100;
-
-	pros::lcd::set_text(0, "Operator Control Active");
 
 	while (true) {
 		// Arcade drive

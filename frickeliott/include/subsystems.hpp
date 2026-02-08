@@ -10,8 +10,9 @@ extern Drive chassis;
 // inline pros::Motor intake(1);
 // inline pros::adi::DigitalIn limit_switch('A');
 
-extern pros::adi::DigitalOut led_disabled('B');
+extern pros::adi::DigitalOut led_disabledMode('B');
 extern pros::adi::DigitalOut led_IS1_jammed('C');
 extern pros::adi::DigitalOut led_placeholder('D');
 inline pros::adi::DigitalIn limitS_outtake('A');
-
+inline pros::adi::DigitalIn encoder_left('E', 'F', true);
+inline pros::adi::DigitalIn encoder_right('G', 'H', true);

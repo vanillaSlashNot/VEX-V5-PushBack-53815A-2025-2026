@@ -14,14 +14,6 @@ void initialize() { /** * Runs initialization code. This occurs as soon as the p
 
   pros::delay(500);  // Stop the user from doing anything while legacy ports configure
 
-  // Look at your horizontal tracking wheel and decide if it's in front of the midline of your robot or behind it
-  //  - change `back` to `front` if the tracking wheel is in front of the midline
-  //  - ignore this if you aren't using a horizontal tracker
-  // chassis.odom_tracker_back_set(&horiz_tracker);
-  // Look at your vertical tracking wheel and decide if it's to the left or right of the center of the robot
-  //  - change `left` to `right` if the tracking wheel is to the right of the centerline
-  //  - ignore this if you aren't using a vertical tracker
-  // chassis.odom_tracker_left_set(&vert_tracker);
 
   // Configure your chassis controls
   chassis.opcontrol_curve_buttons_toggle(true);   // Enables modifying the controller curve with buttons on the joysticks
@@ -224,7 +216,7 @@ void opcontrol() {
 
   while (true) {
     ez_template_extras();      // Gives you some extras to make EZ-Template ezier
-    chassis.opcontrol_arcade_standard(ez::SPLIT);  // left stick is fwd/back, right stick is rotation/yaw
+    field_centric_opcontrol(); // custom H-drive field-centric control
     intake_opcontrol();        // Intake control
 
     pros::delay(ez::util::DELAY_TIME);  // This is used for timer calculations!  Keep this ez::util::DELAY_TIME

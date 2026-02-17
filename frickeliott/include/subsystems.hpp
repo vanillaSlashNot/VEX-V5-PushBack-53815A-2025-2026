@@ -5,8 +5,6 @@
 
 extern Drive chassis;
 
-// Field-centric H-drive opcontrol (defined in src/drivetrains.cpp)
-void field_centric_opcontrol();
 
 // Your motors, sensors, etc. should go here.  Below are examples
 

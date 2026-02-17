@@ -2,6 +2,9 @@
 
 #include "EZ-Template/api.hpp"
 #include "api.h"
+
+
+
 // Chassis constructor
 ez::Drive chassis(
     // These are your drive motors, the first motor is used for sensing!
@@ -15,7 +18,7 @@ ez::Drive chassis(
 
 ez::tracking_wheel vert_trackerL({'E', 'F'}, 3.25, 8.25);   // This tracking wheel is parallel to the drive wheels
 ez::tracking_wheel vert_trackerR({'G', 'H'}, 3.25, 8.25);   // This tracking wheel is parallel to the drive wheels
-ez::tracking_wheel horiz_tracker(15, 3.25, 2);  // This tracking wheel is perpendicular to the drive wheels
+ez::tracking_wheel horiz_tracker({'C', 'D'}, 15, 3.25, 2);  // This tracking wheel is perpendicular to the drive wheels
 
 
 // Uncomment the trackers you're using here!

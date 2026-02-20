@@ -5,8 +5,21 @@
 
 
 
+//drivedrain motor groups declaring. left -> H -> right
+inline pros::MotorGroup leftDrivet({2, 1, 3}, pros::E_MOTOR_GEARSET_18, false);
+inline pros::MotorGroup rightDrivet({-9, -8, -10}, pros::E_MOTOR_GEARSET_18, false);
+inline pros::MotorGroup hDrivet({6, 5}, pros::E_MOTOR_GEARSET_36, false);
+
+ez::tracking_wheel vert_trackerL({'E', 'F'}, 3.25, 8.25);   // This tracking wheel is parallel to the drive wheels
+ez::tracking_wheel vert_trackerR({'G', 'H'}, 3.25, 8.25);   // This tracking wheel is parallel to the drive wheels
+ez::tracking_wheel horiz_tracker({'C', 'D'}, 15, 3.25, 2);  // This tracking wheel is perpendicular to the drive wheels
+
+
+
+
+
 // Chassis constructor
-ez::Drive chassis(
+/*ez::Drive chassis(
     // These are your drive motors, the first motor is used for sensing!
     {2, 1, 3},     // Left Chassis Ports (negative port will reverse it!)
     {9, 8, 10},  // Right Chassis Ports (negative port will reverse it!)
@@ -15,11 +28,7 @@ ez::Drive chassis(
     3.25,  // Wheel Diameter (Remember, 4" wheels without screw holes are actually 4.125!)
     300  // Wheel RPM = cartridge * (motor gear / wheel gear)
 ); 
-
-ez::tracking_wheel vert_trackerL({'E', 'F'}, 3.25, 8.25);   // This tracking wheel is parallel to the drive wheels
-ez::tracking_wheel vert_trackerR({'G', 'H'}, 3.25, 8.25);   // This tracking wheel is parallel to the drive wheels
-ez::tracking_wheel horiz_tracker({'C', 'D'}, 15, 3.25, 2);  // This tracking wheel is perpendicular to the drive wheels
-
+*/
 
 // Uncomment the trackers you're using here!
 // - `8` and `9` are smart ports (making these negative will reverse the sensor)

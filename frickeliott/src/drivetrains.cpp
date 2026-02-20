@@ -13,10 +13,6 @@ constexpr int WEST_PORT = 0;
 constexpr int NORTH_PORT = 0;
 constexpr int SOUTH_PORT = 0;
 
-inline pros::Motor east_drive{EAST_PORT, pros::E_MOTOR_GEARSET_06, false};
-inline pros::Motor west_drive{WEST_PORT, pros::E_MOTOR_GEARSET_06, false};
-inline pros::Motor north_drive{NORTH_PORT, pros::E_MOTOR_GEARSET_06, false};
-inline pros::Motor south_drive{SOUTH_PORT, pros::E_MOTOR_GEARSET_06, false};
 
 static int limitMotor(double v) {
 	if (v > 127.0) return 127;

@@ -29,3 +29,14 @@ ez::tracking_wheel horiz_tracker({'C', 'D'}, 15, 3.25, 2);  // This tracking whe
 // ez::tracking_wheel horiz_tracker(8, 2.75, 4.0);  // This tracking wheel is perpendicular to the drive wheels
 // ez::tracking_wheel vert_tracker(4, 3.25, 8.25);   // This tracking wheel is parallel to the drive wheels
 // ez::tracking_wheel vert_tracker(4, 3.25, 8.25);   // This tracking wheel is parallel to the drive wheels
+
+
+/*
+inline pros::Motor left_front1{EAST_PORT, pros::E_MOTOR_GEARSET_06, false};
+inline pros::Motor left_middle2{WEST_PORT, pros::E_MOTOR_GEARSET_06, false};
+inline pros::Motor left_back3{NORTH_PORT, pros::E_MOTOR_GEARSET_06, false};
+inline pros::Motor right_front4{SOUTH_PORT, pros::E_MOTOR_GEARSET_06, false};
+inline pros::Motor right_middle5{SOUTH_PORT, pros::E_MOTOR_GEARSET_06, false};
+inline pros::Motor right_back6{SOUTH_PORT, pros::E_MOTOR_GEARSET_06, false};
+*/
+

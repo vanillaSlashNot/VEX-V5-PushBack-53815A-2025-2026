@@ -6,8 +6,8 @@
 
 
 //drivedrain motor groups declaring. left -> H -> right
-inline pros::MotorGroup leftDrivet({2, 1, 3}, pros::E_MOTOR_GEARSET_18, false);
-inline pros::MotorGroup rightDrivet({-9, -8, -10}, pros::E_MOTOR_GEARSET_18, false);
+inline pros::MotorGroup leftDrivet({2, 1, 3}, pros::E_MOTOR_GEARSET_18, true);
+inline pros::MotorGroup rightDrivet({-9, -8, -10}, pros::E_MOTOR_GEARSET_18, true);
 inline pros::MotorGroup hDrivet({6, 5}, pros::E_MOTOR_GEARSET_36, false);
 
 ez::tracking_wheel vert_trackerL({'E', 'F'}, 3.25, 8.25);   // This tracking wheel is parallel to the drive wheels

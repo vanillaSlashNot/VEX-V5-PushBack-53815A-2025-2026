@@ -15,7 +15,5 @@ inline pros::adi::DigitalOut led_disabledMode('B');
 inline pros::adi::DigitalOut led_IS1_jammed('C');
 inline pros::adi::DigitalOut led_placeholder('D');
 inline pros::adi::DigitalIn limitS_outtake('A');
-inline pros::adi::DigitalIn encoder_left('E', 'F', true);
-inline pros::adi::DigitalIn encoder_right('G', 'H', true);
 
 inline ez::PID liftPID{0.45, 0, 0, 0, "chassisPID"};

@@ -15,3 +15,16 @@ void intake_opcontrol() {
     set_intake(0);
   }
 }
+
+
+void intake_auton() {
+  if (master.get_digital(DIGITAL_L1)) {
+    set_intake(127);
+  } 
+  else if (master.get_digital(DIGITAL_L2)) {
+    set_intake(-127);
+  } 
+  else {
+    set_intake(0);
+  }
+}

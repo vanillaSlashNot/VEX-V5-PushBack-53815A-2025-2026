@@ -1,5 +1,6 @@
 #pragma once
 
+#include "main.h"
 #include "EZ-Template/api.hpp"
 #include "api.h"
 

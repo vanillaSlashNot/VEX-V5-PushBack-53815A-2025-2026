@@ -212,7 +212,7 @@ else {
 */
 // . . .
 void opcontrol() {
-chassis.drive_brake_set(MOTOR_BRAKE_COAST);  // This is preference to what you like to drive on
+//chassis.drive_brake_set(MOTOR_BRAKE_COAST);  // This is preference to what you like to drive on
 
 while (true) {
   ez_template_extras();      // Gives you some extras to make EZ-Template ezier

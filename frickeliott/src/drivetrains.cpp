@@ -27,10 +27,9 @@ void field_centric_opcontrol() {
     int y_joy = log_drive(master.get_analog(ANALOG_LEFT_Y));
     int turn  = log_drive(master.get_analog(ANALOG_RIGHT_X));
 
-
     // Reset heading if UP is pressed
     if (master.get_digital_new_press(DIGITAL_UP)) {
-        chassis.drive_imu_reset(0);
+        imu.reset(0);
     }
 
     // 2. Rotate the translation vector based on current IMU heading

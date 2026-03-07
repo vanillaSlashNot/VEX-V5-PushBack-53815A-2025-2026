@@ -43,3 +43,8 @@ TEMPLATE_FILES=$(INCDIR)/**/*.h $(INCDIR)/**/*.hpp
 ################################################################################
 ########## Nothing below this line should be edited by typical users ###########
 -include ./common.mk
+
+# in your Makefile
+INCDIR = $(ROOT)/include
+CFLAGS  += -I$(INCDIR) -I$(INCDIR)/liblvgl -I$(INCDIR)/pros
+CXXFLAGS += -I$(INCDIR) -I$(INCDIR)/liblvgl -I$(INCDIR)/pros
